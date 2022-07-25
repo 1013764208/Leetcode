@@ -2,19 +2,19 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-public class Temp02 {
+public class list_ex {
 
     public static void main(String[] args) {
 
         // 实例化ListNode，初始化 val=0，next=null，头结点：(0,null)
-        ListNode node = new ListNode();
+        ListNode node = new ListNode(-1);
         node.add(1);
         node.add(2);
         node.add(3);
         node.add(4);
 
 
-//        node.print();   // 0-->1-->2-->3-->4--> （带头结点）
+//        node.print();   // -1-->1-->2-->3-->4--> （带头结点）
 
 
         // -----不带头结点---------------------
@@ -22,17 +22,21 @@ public class Temp02 {
         node1.add(2);
         node1.add(3);
         node1.add(4);
-        node1.add(5);
-        node1.add(6);
-        node1.add(7);
 
+
+        ListNode node2= new ListNode(1);
+        node2.add(3);
+        node2.add(5);
+        node2.add(6);
+
+        mergeTwoLists(node1,node2).print();
 
 //        System.out.println(isPalindrome(node1));
 
 //        middleNode(node1).print();
 //        reverse(node1).print();
 
-        reverseBetween(node1, 3, 5).print();
+//        reverseBetween(node1, 3, 5).print();
 //        node1.print();  // 1-->2-->3-->4-->
 
 //        reverseList(node1).print();
@@ -40,6 +44,8 @@ public class Temp02 {
 //        System.out.println(hasCycle(node1));
 
 //        deleteDuplicates(node1).print();
+
+//        reserve19(node1).print();
 
 
     }
@@ -69,42 +75,41 @@ public class Temp02 {
 
     }
 
-    // 找到链表中间节点（876. 链表的中间结点）
-//    public static ListNode middleNode(ListNode head) {
-//        // 若头节点为空，或头节点的下一个为空，则返回head
-//        if (head == null || head.next == null) {
-//            return head;
-//        }
-//        ListNode slow = head;
-//        ListNode fast = head;
-//
-//        while (fast != null && fast.next != null) {
-//            slow = slow.next;
-//            fast = fast.next.next;
-//        }
-//        return slow;
-//    }
+    //     找到链表中间节点（876. 链表的中间结点）
+    public static ListNode middleNode(ListNode head) {
+        // 若头节点为空，或头节点的下一个为空，则返回head
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
 
     // 合并两个有序链表（21. 合并两个有序链表）
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        ListNode sentry = new ListNode(-1);
-        ListNode curr = sentry;
-
-        while (l1 != null && l2 != null) {
-            if (l1.val < l2.val) {
-                curr.next = l1;
-                l1 = l1.next;
-            } else {
-                curr.next = l2;
-                l2 = l2.next;
-            }
-
-            curr = curr.next;
-        }
-
-        curr.next = l1 != null ? l1 : l2;
-        return sentry.next;
-    }
+//    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+//        ListNode sentry = new ListNode(-1);
+//        ListNode curr = sentry;
+//
+//        while (l1 != null && l2 != null) {
+//            if (l1.val < l2.val) {
+//                curr.next = l1;
+//                l1 = l1.next;
+//            } else {
+//                curr.next = l2;
+//                l2 = l2.next;
+//            }
+//
+//            curr = curr.next;
+//        }
+//        curr.next = l1 != null ? l1 : l2;
+//        return sentry.next;
+//    }
 
 
     /**
@@ -214,20 +219,20 @@ public class Temp02 {
     }
 
     // 链表的中间结点（快慢指针）
-    public static ListNode middleNode(ListNode head) {
-
-        if (head == null || head.next == null) {
-            return head;
-        }
-
-        ListNode fast = head;
-        ListNode slow = head;
-        while (fast.next != null && fast.next.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-        return slow;
-    }
+//    public static ListNode middleNode(ListNode head) {
+//
+//        if (head == null || head.next == null) {
+//            return head;
+//        }
+//
+//        ListNode fast = head;
+//        ListNode slow = head;
+//        while (fast.next != null && fast.next.next != null) {
+//            slow = slow.next;
+//            fast = fast.next.next;
+//        }
+//        return slow;
+//    }
 
     // 反转链表，当前结点next赋临时（当结下赋），再反转，后移动
     public static ListNode reverseList(ListNode head) {
@@ -243,6 +248,7 @@ public class Temp02 {
         }
         return pre;
     }
+
     private static void reverseLinkedList(ListNode head) {
         // 也可以使用递归反转一个链表
         ListNode pre = null;
@@ -255,6 +261,7 @@ public class Temp02 {
             cur = next;
         }
     }
+
     public static void reverse(ListNode head) {
 
         ListNode cur = head;
@@ -266,6 +273,20 @@ public class Temp02 {
             pre = cur;
             cur = temp;
         }
+    }
+
+    public static ListNode reverse1(ListNode head) {
+        ListNode cur = head;
+        ListNode pre = null;
+
+        while (cur != null) {
+            ListNode temp = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = temp;
+        }
+        return pre;
+
     }
 
     public static ListNode reverseBetween(ListNode head, int left, int right) {
@@ -304,10 +325,56 @@ public class Temp02 {
         pre.next = rightNode;
         leftNode.next = curr;
 
-
         return dummyNode.next;
 
     }
+
+    // 未完成
+    public static ListNode reserve19(ListNode head) {
+
+        ListNode cur_h = head;
+
+
+        ListNode rev = reverseList(head);
+
+        ListNode cur_r = rev;
+        ListNode cur_r_n = rev;
+
+        while (cur_h != null) {
+            cur_h.next = rev;
+            cur_h = cur_h.next;
+            cur_r_n = cur_r_n.next;
+            cur_r.next = cur_h;
+            cur_r = cur_r_n;
+        }
+        return head;
+    }
+
+    // 将两个升序链表合并为一个新的升序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的
+    public static ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        // 设置哨兵节点，方便容易返回合并后的链表
+        ListNode prehead = new ListNode(-1);
+
+
+        ListNode prev = prehead;
+        while (list1 != null && list2 != null) {
+            if (list1.val <= list2.val) {
+                prev.next = list1;
+                list1 = list1.next;
+            } else {
+                prev.next = list2;
+                list2 = list2.next;
+            }
+            prev = prev.next;
+        }
+        // 合并后l1和l2最多只有一个还未被合并完，直接将链表末尾指向未合并完的链表
+        prev.next = list1 == null ? list2 : list1;
+
+        // next 跳过哨兵节点
+        return prehead.next;
+
+    }
 }
+
 
 

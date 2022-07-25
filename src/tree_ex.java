@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Temp04 {
+public class tree_ex {
 
 
     public static void main(String[] args) {
@@ -38,9 +38,6 @@ public class Temp04 {
 
     /**
      * 中序遍历：左根右
-     *
-     * @param root
-     * @return
      */
     public static List<Integer> inorderTraversal(TreeNode root) {
         ArrayList<Integer> res = new ArrayList<>();
@@ -55,5 +52,10 @@ public class Temp04 {
         inorder(root.left, res);
         res.add(root.val);
         inorder(root.right, res);
+    }
+
+    public List<Integer> preorderTraversal(TreeNode root) {
+
+        return null;
     }
 }
