@@ -1,3 +1,5 @@
+import org.junit.Test;
+
 import java.util.*;
 
 public class tree_ex {
@@ -143,5 +145,48 @@ public class tree_ex {
             res.add(list);
         }
         return res;
+    }
+
+
+    @Test
+    public void test0801(){
+        LinkedList<Integer> inPut = new LinkedList<>(Arrays.asList(new Integer[]{1,2,3,null,null,4,null,null,2,4,null,null,3}));
+        TreeNode binaryTree = new TreeNode().creatBinaryTree_preOrder(inPut);
+//        System.out.println(inorderTraversal(binaryTree));
+
+        System.out.println(isSymmetric(binaryTree));
+
+
+    }
+
+
+    // 对称二叉树
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+
+        return check(root.left, root.right);
+    }
+
+    public boolean check(TreeNode left, TreeNode right) {
+        // 左右结点为空，返回true
+        if (left == null && right == null) {
+            return true;
+        }
+
+        // 左右结点不为空，返回false
+        if (left == null || right == null) {
+            return false;
+        }
+
+        // 左右结点值不相等时，返回false
+        if (left.val != right.val) {
+            return false;
+        }
+
+        // 再遍历比较 左结点的左孩子和右结点右孩子
+        // 以及左结点右孩子和右结点左孩子
+        return check(left.left, right.right) && check(left.right, right.left);
     }
 }
