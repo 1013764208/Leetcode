@@ -24,12 +24,19 @@ public class list_ex {
         node1.add(4);
 
 
-        ListNode node2= new ListNode(1);
+        ListNode node2 = new ListNode(1);
         node2.add(3);
         node2.add(5);
         node2.add(6);
 
-        mergeTwoLists(node1,node2).print();
+
+        reserve19(node1).print();
+
+//        System.out.println(node1);
+//        System.out.println(copy(node1));
+//        copy(node1).print();
+
+//        mergeTwoLists(node1, node2).print();
 
 //        System.out.println(isPalindrome(node1));
 
@@ -51,45 +58,45 @@ public class list_ex {
     }
 
 
-    /**
-     * 题目：给你链表的头结点head，请将其按升序排列并返回排序后的链表
-     * 思路：归并排序
-     */
-    public ListNode sortList(ListNode head) {
-
-        // 1.递归结束条件
-        if (head == null || head.next == null) {
-            return head;
-        }
-
-        // 2.找到链表中间节点并断开链表 & 递归下探
-        ListNode midNode = middleNode(head);
-        ListNode rightHead = midNode.next;
-        midNode.next = null;
-
-        ListNode left = sortList(head);
-        ListNode right = sortList(rightHead);
-
-        // 3.当前层业务操作（合并有序链表）
-        return mergeTwoLists(left, right);
-
-    }
-
-    //     找到链表中间节点（876. 链表的中间结点）
-    public static ListNode middleNode(ListNode head) {
-        // 若头节点为空，或头节点的下一个为空，则返回head
-        if (head == null || head.next == null) {
-            return head;
-        }
-        ListNode slow = head;
-        ListNode fast = head;
-
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-        return slow;
-    }
+//    /**
+//     * 题目：给你链表的头结点head，请将其按升序排列并返回排序后的链表
+//     * 思路：归并排序
+//     */
+//    public ListNode sortList(ListNode head) {
+//
+//        // 1.递归结束条件
+//        if (head == null || head.next == null) {
+//            return head;
+//        }
+//
+//        // 2.找到链表中间节点并断开链表 & 递归下探
+//        ListNode midNode = middleNode(head);
+//        ListNode rightHead = midNode.next;
+//        midNode.next = null;
+//
+//        ListNode left = sortList(head);
+//        ListNode right = sortList(rightHead);
+//
+//        // 3.当前层业务操作（合并有序链表）
+//        return mergeTwoLists(left, right);
+//
+//    }
+//
+//    //     找到链表中间节点（876. 链表的中间结点）
+//    public static ListNode middleNode(ListNode head) {
+//        // 若头节点为空，或头节点的下一个为空，则返回head
+//        if (head == null || head.next == null) {
+//            return head;
+//        }
+//        ListNode slow = head;
+//        ListNode fast = head;
+//
+//        while (fast != null && fast.next != null) {
+//            slow = slow.next;
+//            fast = fast.next.next;
+//        }
+//        return slow;
+//    }
 
     // 合并两个有序链表（21. 合并两个有序链表）
 //    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
@@ -188,35 +195,35 @@ public class list_ex {
     }
 
 
-    /**
-     * 快慢指针：将链表的后半部分反转（修改链表结构），然后将前半部分和后半部分进行比较，比较完后再恢复
-     * 1. 找到前半部分的链表
-     * 2. 反转后半部分链表
-     * 3. 判断是否回文
-     * 4. 恢复链表，返回结果
-     */
-    public static boolean isPalindrome(ListNode head) {
-        if (head == null) {
-            return true;
-        }
-
-        // 找到前半部分链表的尾结点并反转后半部分
-        ListNode firstHalfEnd = middleNode(head);
-        ListNode secondHalfStart = reverseList(firstHalfEnd.next);
-
-        // 判断是否回文
-        ListNode p1 = head;
-        ListNode p2 = secondHalfStart;
-        boolean result = true;
-        while (result && p2 != null) {
-            if (p1.val != p2.val) {
-                result = false;
-            }
-            p1 = p1.next;
-            p2 = p2.next;
-        }
-        return result;
-    }
+//    /**
+//     * 快慢指针：将链表的后半部分反转（修改链表结构），然后将前半部分和后半部分进行比较，比较完后再恢复
+//     * 1. 找到前半部分的链表
+//     * 2. 反转后半部分链表
+//     * 3. 判断是否回文
+//     * 4. 恢复链表，返回结果
+//     */
+//    public static boolean isPalindrome(ListNode head) {
+//        if (head == null) {
+//            return true;
+//        }
+//
+//        // 找到前半部分链表的尾结点并反转后半部分
+//        ListNode firstHalfEnd = middleNode(head);
+//        ListNode secondHalfStart = reverseList(firstHalfEnd.next);
+//
+//        // 判断是否回文
+//        ListNode p1 = head;
+//        ListNode p2 = secondHalfStart;
+//        boolean result = true;
+//        while (result && p2 != null) {
+//            if (p1.val != p2.val) {
+//                result = false;
+//            }
+//            p1 = p1.next;
+//            p2 = p2.next;
+//        }
+//        return result;
+//    }
 
     // 链表的中间结点（快慢指针）
 //    public static ListNode middleNode(ListNode head) {
@@ -329,32 +336,53 @@ public class list_ex {
 
     }
 
-    // 未完成
+    // 408 2019.41
     public static ListNode reserve19(ListNode head) {
 
-        ListNode cur_h = head;
+        // 因为反转后破坏其原来结构，故需要克隆链表
+        ListNode copy = copy(head);
+        ListNode rever = reverseList(copy);
+        return mergeEx(head, rever);
+    }
 
+    public static ListNode copy(ListNode head) {
 
-        ListNode rev = reverseList(head);
+        ListNode new_head = new ListNode(-1);
 
-        ListNode cur_r = rev;
-        ListNode cur_r_n = rev;
-
-        while (cur_h != null) {
-            cur_h.next = rev;
-            cur_h = cur_h.next;
-            cur_r_n = cur_r_n.next;
-            cur_r.next = cur_h;
-            cur_r = cur_r_n;
+        while (head != null) {
+            new_head.add(head.val);
+            head = head.next;
         }
-        return head;
+        return new_head.next;
+    }
+
+    public static ListNode mergeEx(ListNode list1, ListNode list2) {
+        ListNode prehead = new ListNode(-1);
+        ListNode prev = prehead;
+        int flag = 0;
+        while (list1 != null && list2 != null) {
+            if (flag % 2 != 0) {
+                prev.next = list1;
+                list1 = list1.next;
+
+            } else if (flag % 2 == 0) {
+                prev.next = list2;
+                list2 = list2.next;
+            }
+            prev = prev.next;
+            flag++;
+        }
+
+        // 剩下的，直接指向
+        prev.next = list1 == null ? list2 : list1;
+
+        return prehead.next;
     }
 
     // 将两个升序链表合并为一个新的升序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的
     public static ListNode mergeTwoLists(ListNode list1, ListNode list2) {
         // 设置哨兵节点，方便容易返回合并后的链表
         ListNode prehead = new ListNode(-1);
-
 
         ListNode prev = prehead;
         while (list1 != null && list2 != null) {
@@ -372,7 +400,6 @@ public class list_ex {
 
         // next 跳过哨兵节点
         return prehead.next;
-
     }
 }
 
