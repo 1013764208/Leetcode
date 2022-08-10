@@ -1,3 +1,5 @@
+import org.junit.Test;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -177,7 +179,18 @@ public class list_ex {
     }
 
 
-    public static ListNode deleteDuplicates(ListNode head) {
+    @Test
+    public void deTest() {
+        ListNode node1 = new ListNode(1);
+        node1.add(2);
+        node1.add(2);
+        node1.add(3);
+
+        deleteDuplicates(node1).print();
+
+    }
+
+    public ListNode deleteDuplicates(ListNode head) {
 
         ListNode cur = head;
         ListNode next = head.next;
@@ -400,6 +413,55 @@ public class list_ex {
 
         // next 跳过哨兵节点
         return prehead.next;
+    }
+
+    @Test
+    public void Ex_2017_Test() {
+        ListNode node = new ListNode(-1);
+        node.add(21);
+        node.add(-15);
+        node.add(-15);
+        node.add(-15);
+        node.add(-7);
+        node.add(15);
+
+        Ex_2017(node).print();
+    }
+
+    public ListNode Ex_2017(ListNode head) {
+
+        ListNode cur = head;
+        ListNode next = head.next;  // 需要提前判断是否删除，故设其
+        HashSet<Integer> set = new HashSet<>(Math.abs(head.val));
+
+        while (next != null) {
+            // 如果map不包含next其绝对值的值
+            if (!set.contains(Math.abs(next.val))) {
+                // 添加其值到set中
+                set.add(Math.abs(next.val));
+                cur = cur.next;
+                next = next.next;
+            } else {
+                // 当前结点next跳指下一个结点
+                next = next.next;
+                cur.next = next;
+            }
+            // 不能写在这里，如果next=null，next=next.next 空指针异常
+            // 不用担心else没有运行，next，cur 后移，只要不包含，就走if，便会后移
+//            cur = cur.next;
+//            next = next.next;
+
+            // 为什么不用 cur.next = cur.next.next，代替以上代码？
+            // 可实现跳指，但无法判断 cur.next.next 是否为空，
+        }
+        return head;
+    }
+
+    public ListNode temp(ListNode head) {
+
+        ListNode cur = head;
+        cur.next = cur.next.next;
+        return head;
     }
 }
 
